@@ -1,0 +1,49 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="${packageName}.${activityClass}" >
+
+    <CheckBox
+        android:id="@+id/infoCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginRight="10dp"
+        android:text="@string/show_info" />
+	
+	<ListView
+		android:id="@+id/chatListView"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1" >
+	</ListView>
+
+    <LinearLayout
+	    android:id="@+id/messageLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp" >
+        
+	    <EditText
+	        android:id="@+id/messageField"
+	        android:layout_width="0dp"
+	        android:layout_weight="0.8"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center_vertical"
+	        android:ems="10"
+	        android:text="@string/enter_your_message"
+	        android:inputType="textMultiLine" >
+	    </EditText>
+
+        <ImageButton
+            android:id="@+id/chatSendButton"
+	        android:layout_width="0dp"
+	        android:layout_weight="0.2"
+            android:layout_height="wrap_content"
+	        android:layout_gravity="center_vertical"
+            android:src="@android:drawable/ic_media_play" />
+
+    </LinearLayout>
+
+</LinearLayout>
