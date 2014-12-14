@@ -54,6 +54,7 @@ public class ChatActivity extends Activity {
 	
 	private DH mDH;
 	private Cipher mCipher;
+	private long startKeyExchange;
 
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB) 
 	protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +114,7 @@ public class ChatActivity extends Activity {
 			String tmp[];
 			tmp = input.split(":");
 			PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(mSocket.getOutputStream())),true);
+			long time;
 			switch(tmp[0]){	
 			case "STARTDH":
 				mUpdateConversationHandler.post(new Thread(){
@@ -128,6 +130,7 @@ public class ChatActivity extends Activity {
 				out.println("LOG-Generator G: "+mDH.publicG);
 				addMessage("Prime P: "+mDH.publicP, true);
 				addMessage("Generator G:"+mDH.publicG, true);
+				startKeyExchange = System.currentTimeMillis();
 				break;
 			case "FIRSTDH":
 				mUpdateConversationHandler.post(new Thread(){
@@ -142,6 +145,7 @@ public class ChatActivity extends Activity {
 				out.println("SECONDDH:"+mDH.myPublicKey);
 				out.println("LOG-PublicKey: "+mDH.myPublicKey);
 				addMessage("PublicKey: "+mDH.myPublicKey, true);
+				startKeyExchange = System.currentTimeMillis();
 				break;
 			case "SECONDDH":
 				mDH.getYourPublicKey(new BigInteger(tmp[1]));
@@ -160,6 +164,8 @@ public class ChatActivity extends Activity {
 				addMessage("Success!", true);
 				addMessage("Klucz: "+new BigInteger(mDH.secretKey), true);
 				addMessage("Dlugosc: "+mDH.secretKey.length, true);
+				time = (System.currentTimeMillis() - startKeyExchange)/1000;
+				addMessage("Czas zestawiania kluczy: "+time +" s", true);
 				if(mDialog != null)
 					mDialog.dismiss();
 				break;
@@ -167,6 +173,8 @@ public class ChatActivity extends Activity {
 				mDH.success = true;
 				addMessage("Klucz: "+new BigInteger(mDH.secretKey), true);
 				addMessage("Dlugosc: "+mDH.secretKey.length, true);
+				time = (System.currentTimeMillis() - startKeyExchange)/1000;
+				addMessage("Czas zestawiania kluczy: "+time +" s", true);
 				if(mDialog != null)
 					mDialog.dismiss();
 				break;
