@@ -11,7 +11,7 @@ public class DH {
 	public void initialize(){
 		publicP = BigInteger.probablePrime(1024, rnd);
 		publicR = BigInteger.probablePrime(256, rnd);
-		publicG = new BigInteger("2");
+		publicG = BigInteger.probablePrime(32, rnd);
 
 		System.out.println(publicP.divide(publicR));
 		

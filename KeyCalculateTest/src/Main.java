@@ -6,6 +6,9 @@ public class Main {
 	static public DH Bob = new DH();
 	
 	public static void main(String[] args) {
+		long t1,t2;
+		float time;
+		t1=System.currentTimeMillis();
 		Alice.initialize();
 		System.out.println("Alice");
 		System.out.println("P: "+Alice.publicP+"; G: "+Alice.publicG);
@@ -26,6 +29,9 @@ public class Main {
 		Bob.calculateSecretKey();
 		System.out.println("Bob");
 		System.out.println("Key: "+new BigInteger(Bob.secretKey));
+		t2=System.currentTimeMillis();
+		time = (t2-t1);		
+		System.out.println("Czas obliczenia kluczy: "+time/1000+" s");
 		//System.out.println("Key: "+Bob.secretKey.length*8);
 	}
 }
